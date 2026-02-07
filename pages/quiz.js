@@ -16,7 +16,11 @@ export default function Quiz() {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id) {
+      alert('Invalid quiz link. Please complete registration first.');
+      router.push('/');
+      return;
+    }
     
     // Fetch questions
     fetch(`/api/quiz/start?id=${id}`)
@@ -26,9 +30,13 @@ export default function Quiz() {
           setQuestions(data.questions);
           setLoading(false);
         } else {
-          alert(data.error);
+          alert(data.error || 'Failed to load quiz');
           router.push('/');
         }
+      })
+      .catch(err => {
+        alert('Failed to load quiz. Please try again.');
+        router.push('/');
       });
   }, [id]);
 
