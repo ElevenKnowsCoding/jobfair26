@@ -17,7 +17,6 @@ export default function Quiz() {
 
   useEffect(() => {
     if (!id) {
-      alert('Invalid quiz link. Please complete registration first.');
       router.push('/');
       return;
     }
@@ -30,15 +29,13 @@ export default function Quiz() {
           setQuestions(data.questions);
           setLoading(false);
         } else {
-          alert(data.error || 'Failed to load quiz');
           router.push('/');
         }
       })
       .catch(err => {
-        alert('Failed to load quiz. Please try again.');
         router.push('/');
       });
-  }, [id]);
+  }, [id, router]);
 
   useEffect(() => {
     if (loading || submitted) return;
