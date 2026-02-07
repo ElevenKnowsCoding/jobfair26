@@ -32,13 +32,13 @@ export default async function handler(req, res) {
       testStatus: 'Pending'
     };
 
-    saveApplication(application);
+    await saveApplication(application);
 
     log(`REGISTRATION: ${name} | ${email} | ${phone} | ${college} | ID: ${application.id}`);
 
     res.status(200).json({ success: true, applicationId: application.id });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to submit application' });
+    console.error('Apply error:', error);
+    res.status(500).json({ error: 'Failed to submit application', details: error.message });
   }
 }
