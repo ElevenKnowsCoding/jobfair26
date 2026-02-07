@@ -121,7 +121,18 @@ export default function Home() {
       if (data.success) {
         setShowFinalSuccess(true);
         setTimeout(() => {
-          window.location.href = '/thank-you';
+          setShowFinalSuccess(false);
+          // Reset form
+          setStep(1);
+          setFormData({
+            name: '',
+            email: '',
+            phone: '',
+            college: 'MES College of Engineering, Kuttippuram'
+          });
+          setFile(null);
+          setSkills([]);
+          setApplicationId(null);
         }, 5000);
       } else {
         alert('Error: ' + data.error);
