@@ -14,6 +14,7 @@ export default function Home() {
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showCVSuccess, setShowCVSuccess] = useState(false);
 
   useEffect(() => {
     // Generate particles
@@ -85,7 +86,11 @@ export default function Home() {
 
       if (data.success) {
         setSkills(data.skills);
-        setStep(3);
+        setShowCVSuccess(true);
+        setTimeout(() => {
+          setShowCVSuccess(false);
+          setStep(3);
+        }, 3000);
       } else {
         alert('Error: ' + data.error);
       }
@@ -253,6 +258,16 @@ export default function Home() {
               <button onClick={handleUpload} className="submit-btn" disabled={loading}>
                 {loading ? 'Processing...' : 'Upload & Analyze'}
               </button>
+
+              {showCVSuccess && (
+                <div className="success-popup">
+                  <div className="success-popup-content">
+                    <div className="success-icon">✓</div>
+                    <h3>CV Uploaded Successfully!</h3>
+                    <p>Analyzing your skills...</p>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
@@ -666,6 +681,64 @@ export default function Home() {
           cursor: pointer;
           font-size: 14px;
           transition: background 0.3s;
+        }
+
+        .success-popup {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.8);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+          animation: fadeIn 0.3s ease;
+        }
+
+        .success-popup-content {
+          background: #1a1a1a;
+          border: 2px solid #dc2626;
+          border-radius: 20px;
+          padding: 40px;
+          text-align: center;
+          animation: slideUp 0.5s ease;
+        }
+
+        .success-icon {
+          width: 80px;
+          height: 80px;
+          background: #dc2626;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 48px;
+          color: white;
+          margin: 0 auto 20px;
+          animation: scaleIn 0.5s ease;
+        }
+
+        .success-popup-content h3 {
+          color: white;
+          font-size: 24px;
+          margin-bottom: 10px;
+        }
+
+        .success-popup-content p {
+          color: #999;
+          font-size: 16px;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+          from { transform: scale(0); }
+          to { transform: scale(1); }
         }
 
         @media (max-width: 480px) {
