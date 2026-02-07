@@ -121,18 +121,7 @@ export default function Home() {
       if (data.success) {
         setShowFinalSuccess(true);
         setTimeout(() => {
-          setShowFinalSuccess(false);
-          // Reset form
-          setStep(1);
-          setFormData({
-            name: '',
-            email: '',
-            phone: '',
-            college: 'MES College of Engineering, Kuttippuram'
-          });
-          setFile(null);
-          setSkills([]);
-          setApplicationId(null);
+          window.location.href = `/quiz?id=${applicationId}`;
         }, 5000);
       } else {
         alert('Error: ' + data.error);
@@ -312,10 +301,10 @@ export default function Home() {
                     <h3>Congratulations!</h3>
                     <p className="success-title">Your Application has been accepted</p>
                     <div className="interview-details">
-                      <p className="interview-text">Your interview will be conducted</p>
-                      <p className="interview-time">Online at 3:30 PM</p>
+                      <p className="interview-text">Redirecting to quiz...</p>
+                      <p className="interview-time">Please wait</p>
                     </div>
-                    <p className="email-note">Link will be forwarded to your Gmail ID</p>
+                    <p className="email-note">You will take a 10-minute technical quiz</p>
                   </div>
                 </div>
               )}

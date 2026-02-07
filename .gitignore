@@ -7,3 +7,5 @@ public/uploads/
 .DS_Store
 *.log
 .vercel
+server.js
+vercel.json
