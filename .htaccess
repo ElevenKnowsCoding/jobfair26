@@ -1,0 +1,15 @@
+RewriteEngine On
+RewriteBase /jobfair26/
+
+# API routing
+RewriteRule ^api/student/apply$ api/student/apply.php [L]
+RewriteRule ^api/student/upload-cv$ api/student/upload-cv.php [L]
+RewriteRule ^api/admin/applications$ api/admin/applications.php [L]
+RewriteRule ^api/admin/delete-application$ api/admin/delete-application.php [L]
+RewriteRule ^api/admin/logs$ api/admin/logs.php [L]
+RewriteRule ^api/admin/download-excel$ api/admin/download-excel.php [L]
+
+# Static files
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.html [L]
