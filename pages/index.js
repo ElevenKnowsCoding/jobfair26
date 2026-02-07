@@ -15,6 +15,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showCVSuccess, setShowCVSuccess] = useState(false);
+  const [showFinalSuccess, setShowFinalSuccess] = useState(false);
 
   useEffect(() => {
     // Generate particles
@@ -118,8 +119,10 @@ export default function Home() {
       const data = await res.json();
 
       if (data.success) {
-        alert('Test link sent to your email! Please check your inbox.');
-        window.location.href = '/thank-you';
+        setShowFinalSuccess(true);
+        setTimeout(() => {
+          window.location.href = '/thank-you';
+        }, 5000);
       } else {
         alert('Error: ' + data.error);
       }
@@ -290,6 +293,21 @@ export default function Home() {
               <button onClick={handleConfirm} className="submit-btn" disabled={loading}>
                 {loading ? 'Sending...' : 'Confirm & Get Test Link'}
               </button>
+
+              {showFinalSuccess && (
+                <div className="success-popup">
+                  <div className="success-popup-content final-success">
+                    <div className="success-icon">✓</div>
+                    <h3>Congratulations!</h3>
+                    <p className="success-title">Your Application has been accepted</p>
+                    <div className="interview-details">
+                      <p className="interview-text">Your interview will be conducted</p>
+                      <p className="interview-time">Online at 3:30 PM</p>
+                    </div>
+                    <p className="email-note">Link will be forwarded to your Gmail ID</p>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -739,6 +757,44 @@ export default function Home() {
         @keyframes scaleIn {
           from { transform: scale(0); }
           to { transform: scale(1); }
+        }
+
+        .final-success {
+          max-width: 400px;
+          padding: 50px 40px;
+        }
+
+        .success-title {
+          color: white !important;
+          font-size: 18px !important;
+          font-weight: 600;
+          margin: 20px 0;
+        }
+
+        .interview-details {
+          background: rgba(220, 38, 38, 0.1);
+          border: 1px solid #dc2626;
+          border-radius: 12px;
+          padding: 20px;
+          margin: 20px 0;
+        }
+
+        .interview-text {
+          color: #999 !important;
+          font-size: 14px !important;
+          margin-bottom: 8px;
+        }
+
+        .interview-time {
+          color: #dc2626 !important;
+          font-size: 20px !important;
+          font-weight: 700;
+        }
+
+        .email-note {
+          color: #666 !important;
+          font-size: 14px !important;
+          margin-top: 15px;
         }
 
         @media (max-width: 480px) {
